@@ -1,0 +1,9 @@
+body{
+    background: #000;
+    background: linear-gradient(to right, #fff, #000)
+}
+/* .bg{
+    background-image: url('assets/BurgerQueen.png');
+    background-position: center center;
+} */
+
