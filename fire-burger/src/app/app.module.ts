@@ -14,7 +14,9 @@ import { OrdenesPendientesComponent } from './vistas/ordenes-pendientes/ordenes-
 import { ProductosComponent } from './vistas/productos/productos.component';
 import { UsuariosComponent } from './vistas/usuarios/usuarios.component';
 import { ActualizarProductoComponent } from './modales/actualizar-producto/actualizar-producto.component';
+import { ActualizarUsuarioComponent } from './modales/actualizar-usuario/actualizar-usuario.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ListaProductosComponent } from './vistas/menu/lista-productos/lista-productos.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductosComponent,
     UsuariosComponent,
     ActualizarProductoComponent,
+    ListaProductosComponent,
+    ActualizarUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ ActualizarProductoComponent ]
+  entryComponents: [ ActualizarProductoComponent, ActualizarUsuarioComponent ]
+  
 })
 export class AppModule { }

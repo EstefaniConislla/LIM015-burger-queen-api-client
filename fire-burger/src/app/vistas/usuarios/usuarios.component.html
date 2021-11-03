@@ -23,13 +23,13 @@
       <th></th>
   </thead>
   <tbody>
-    <tr *ngFor="let user of users" class="text-center">
+    <tr *ngFor="let user of usersList" class="text-center">
       <td>{{user.email}}</td>
       <!-- <td>{{user.password}}</td> -->
       <td>{{user.roles.name}}</td>
       <td>{{user.roles.admin}}</td>
       <td>
-        <button class="icons"><i class="far fa-edit fs-4"></i> </button>
+        <button (click)="openEditModal(user)" class="icons"><i class="far fa-edit fs-4"></i> </button>
         <button (click) = "deleteUser(user._id)" class="icons"><i class="fas fa-times-circle fs-4"></i></button> 
       </td>
     </tr>
@@ -52,13 +52,13 @@
       <div class="modal-body">
         <form [formGroup]="formValue"> 
           <div class="mb-3">
-            <input class="form-control me-2" type="text" formControlName="email" placeholder="Usuario" aria-label="Usuario">
+            <input class="form-control me-2 inputModal rounded-0" type="text" formControlName="email" placeholder="Usuario" aria-label="Usuario">
           </div>
           <div class="mb-3">
-            <input class="form-control me-2" type="password" formControlName="password" placeholder="Contraseña" aria-label="Contraseña">
+            <input class="form-control me-2 inputModal rounded-0" type="password" formControlName="password" placeholder="Contraseña" aria-label="Contraseña">
           </div>
           <div class="mb-3">
-             <select class="form-select" formControlName="rolname" aria-label="Cargo">
+             <select class="form-select inputModal  bg-dark rounded-0" formControlName="rolname" aria-label="Cargo">
               <option class="text-dark" [ngValue]="null" [selected]="true">Open this select menu</option>
               <option value="mesero">Mesero</option>
               <option value="cocinero">Cocinero</option>

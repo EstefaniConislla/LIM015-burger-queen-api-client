@@ -1,59 +1,58 @@
 import { Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
- import { ProductsService } from 'src/app/servicios/products.service';
- import { ProductI } from '../../vistas/productos/productos.model';
-
+ import { UsersService } from 'src/app/servicios/users.service';
+ import { UserI } from '../../vistas/usuarios/usuarios.model';
+ 
 
 @Component({
-  selector: 'app-actualizar-producto',
-  templateUrl: './actualizar-producto.component.html',
-  styleUrls: ['./actualizar-producto.component.css'],
+  selector: 'app-actualizar-usuario',
+  templateUrl: './actualizar-usuario.component.html',
+  styleUrls: ['./actualizar-usuario.component.css'],
 })
-export class ActualizarProductoComponent implements OnInit {
+export class ActualizarUsuarioComponent implements OnInit {
 
-  @Input() public product! : ProductI;
+  @Input() public user : UserI = {email: '', password: '', roles:{name:'', admin: false}};
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
   editForm!: FormGroup;
-  public productsList: ProductI[] = [];
+  public UsersList: UserI[] = [];
 
-  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private api: ProductsService) {}
+  constructor(public activeModal: NgbActiveModal, private formBuilder: FormBuilder, private api: UsersService) {}
+  
   ngOnInit(){
-    console.log("Hola",this.product);
     this.editForm = this.formBuilder.group({
-      id:[this.product._id],
-      name: [this.product.name],
-      price: [this.product.price, Validators.required],
-      type:[this.product.type, Validators.required]
+      id: [this.user._id],
+      email: [this.user.email],
+      password: [this.user.password],
+      rolname: [this.user.roles.name],
+      admin:[this.user.roles.admin]
     })
-    // this.setProductsList();
   }
 
 
   onSubmit() {
-    console.log("onsubmit funcionando")
-    this.api.updateOneProduct (this.editForm.value).subscribe(x => {
+
+    const userUpdate = {
+      id:this.user._id,
+      email: this.editForm.value.email,
+      password : this.editForm.value.password,
+      roles: {name: this.editForm.value.rolname, admin: this.editForm.value.admin}
+    }
+    // this.user.email = this.editForm.value.email;
+    // this.user.password = this.editForm.value.password;
+    // this.user.roles.name = this.editForm.value.rolname;
+    // this.user.roles.admin = this.editForm.value.admin;
+    // console.log(this.user);
+    this.api.updateUserService (userUpdate).subscribe(x => {
       this.activeModal.close('Yes');
+      console.log(this.user)
     },
       error => {
         console.log(error)
       });
   }
 
-
-  // updateProduct() {
-  //   this.api.updateOneProduct (this.editForm.value).subscribe((res=>{
-  //     this.activeModal.close(this.product);
-  //     this.setProductsList();
-  //   }));
-  // }
-
-  // setProductsList() {
-  //   this.api.getProduct().subscribe((res) => {
-  //     this.productsList = res;
-  //   });
-  // }
 
 }
 

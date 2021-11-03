@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { ProductI } from '../vistas/productos/productos.model'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+   
+  constructor(private http: HttpClient) {
+  
+  }
 
   getProduct(): Observable<ProductI[]> {
     const token = localStorage.getItem('token');
-    //const headers = new HttpHeaders({'Authorization': `Bearer ${token}`})
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
@@ -44,15 +45,11 @@ export class ProductsService {
     return this.http.delete<ProductI>('https://fireburguer.herokuapp.com/products/'+ uid, config)
     }
 
-  updateOneProduct(uid : any){
-    console.log(uid);
-    
+  updateOneProduct(data:any){
     const token = localStorage.getItem('token');
-    console.log(token);
-    
     const config = {
       headers: { Authorization: `Bearer ${token}`},
     };
-    return this.http.put<ProductI>('https://fireburguer.herokuapp.com/products/'+ uid._id , {price: 100}, config)
+    return this.http.put<ProductI>('https://fireburguer.herokuapp.com/products/'+ data.id ,data, config)
   }  
   }
